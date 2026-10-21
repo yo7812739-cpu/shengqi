@@ -1,0 +1,10 @@
+{
+  "description": "Generates 2-3 second HD videos that subtly animate facial expressions and details while perfectly preserving the original image's style and background.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

@@ -1,0 +1,238 @@
+@import 'tailwindcss';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* ---- Happy micro-animations (2.6s loop ≈ 2–3s clip, gentle & non-destructive) ---- */
+
+/* Big laugh — both eyes' angle wobbles gently upward. */
+@keyframes happyEyeUp {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(var(--eye-rot, 0deg)); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.happy-eye {
+  animation: happyEyeUp 2.6s ease-in-out infinite;
+  will-change: transform;
+}
+.happy-eye--left { --eye-rot: -4deg; }
+.happy-eye--right { --eye-rot: 4deg; }
+
+/* Mouth: wobbles downward, opening a touch for the laugh. */
+@keyframes happyMouthDown {
+  0% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(3px) scaleY(1.1); }
+  100% { transform: translateY(0) scaleY(1); }
+}
+
+.happy-mouth {
+  animation: happyMouthDown 2.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Brackets contract inward with the laugh. */
+@keyframes happyBracket {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.happy-bracket {
+  animation: happyBracket 2.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Polka dots: a soft shimmer band travelling top -> bottom. */
+@keyframes happyDotsSweep {
+  0% { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
+  100% { -webkit-mask-position: 0% 100%; mask-position: 0% 100%; }
+}
+
+.happy-dots {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 1) 22%,
+    rgba(0, 0, 0, 0.5) 44%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 1) 22%,
+    rgba(0, 0, 0, 0.5) 44%
+  );
+  -webkit-mask-size: 100% 300%;
+  mask-size: 100% 300%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: happyDotsSweep 2.6s linear infinite;
+}
+
+/* Party popper: gentle left-right sway. */
+@keyframes happyTrumpetSway {
+  0% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(-2deg); }
+}
+
+.happy-trumpet {
+  transform-origin: 32% 80%;
+  animation: happyTrumpetSway 2.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Countdown: soft flow as digits change. */
+.happy-count {
+  transition: opacity 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .happy-eye,
+  .happy-mouth,
+  .happy-bracket,
+  .happy-dots,
+  .happy-trumpet {
+    animation: none;
+  }
+}
+
+/* ---- Sad crying micro-animations (2.4–3.5s loops, gentle, non-distorting) ---- */
+
+/* Eyebrows: gentle up-down wobble with the sob rhythm. */
+@keyframes sadEyeWobble {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-2px); }
+  65% { transform: translateY(1px); }
+}
+
+.sad-eye {
+  animation: sadEyeWobble 2.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Mouth / nose: quick upward sniff, then settle. */
+@keyframes sadMouthSniff {
+  0%, 100% { transform: translateY(0); }
+  15% { transform: translateY(-3px); }
+  30% { transform: translateY(-1px); }
+  45% { transform: translateY(-2px); }
+  60% { transform: translateY(0); }
+}
+
+.sad-mouth {
+  animation: sadMouthSniff 1.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Brackets: jerk downward with each sob. */
+@keyframes sadBracketJerk {
+  0%, 100% { transform: translateY(0); }
+  20% { transform: translateY(4px); }
+  35% { transform: translateY(1px); }
+  50% { transform: translateY(3px); }
+  65% { transform: translateY(0); }
+}
+
+.sad-bracket {
+  animation: sadBracketJerk 2.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Tear drops: blue squares fall 30px (3 cells) then vanish. */
+@keyframes sadTearDrop {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 0.9; }
+  100% { transform: translateY(30px); opacity: 0; }
+}
+
+.sad-tear {
+  animation: sadTearDrop 1.5s ease-in infinite;
+  will-change: transform, opacity;
+}
+
+/* Polka dot background: breathe in and out, fully independent of face. */
+@keyframes sadDotBreathe {
+  0%, 100% { opacity: 0; }
+  40%, 60% { opacity: 1; }
+}
+
+.sad-dots {
+  animation: sadDotBreathe 3.5s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* Countdown soft flow. */
+.sad-count {
+  transition: opacity 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sad-eye,
+  .sad-mouth,
+  .sad-bracket,
+  .sad-tear,
+  .sad-dots {
+    animation: none;
+  }
+  .sad-dots { opacity: 1; }
+}
+
+/* ---- Angry micro-animations (2.4s loop, subtle, non-distorting) ---- */
+@keyframes angryDots {
+  0%, 100% { opacity: 0.7; }
+  30% { opacity: 0.2; }
+  60% { opacity: 0.85; }
+}
+.angry-row {
+  animation: angryDots 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.07s);
+}
+
+@keyframes angryEyeL {
+  0%, 100% { transform: translate(0, 0) rotate(0) scale(1); }
+  30%, 70% { transform: translate(3px, 3px) rotate(4deg) scale(1.1); }
+}
+@keyframes angryEyeR {
+  0%, 100% { transform: translate(0, 0) rotate(0) scale(1); }
+  30%, 70% { transform: translate(-3px, 3px) rotate(-4deg) scale(1.1); }
+}
+.angry-eye-l { transform-origin: 131px 307px; animation: angryEyeL 2.4s ease-in-out infinite; }
+.angry-eye-r { transform-origin: 239px 307px; animation: angryEyeR 2.4s ease-in-out infinite; }
+
+@keyframes angryMouth {
+  0%, 100% { transform: translateY(0) scaleX(1); }
+  25% { transform: translateY(1.5px) scaleX(1.02); }
+  40% { transform: translateY(0.5px) scaleX(1.02); }
+  55% { transform: translateY(1.5px) scaleX(1.02); }
+  70% { transform: translateY(0.5px) scaleX(1.02); }
+}
+.angry-mouth { transform-origin: 185px 338px; animation: angryMouth 2.4s ease-in-out infinite; }
+
+@keyframes angryBracketL {
+  0%, 100% { transform: scale(1); }
+  30%, 70% { transform: scale(1.08); }
+}
+.angry-bracket-l { transform-origin: 65px 316px; animation: angryBracketL 2.4s ease-in-out infinite; }
+.angry-bracket-r { transform-origin: 305px 311px; animation: angryBracketL 2.4s ease-in-out infinite; }
+
+@keyframes angryExcl {
+  0% { transform: scale(1) rotate(0); }
+  22% { transform: scale(1.1) rotate(0); }
+  34% { transform: scale(1.1) rotate(-3deg); }
+  50% { transform: scale(1.1) rotate(3deg); }
+  64% { transform: scale(1.1) rotate(-3deg); }
+  78% { transform: scale(1.1) rotate(3deg); }
+  90% { transform: scale(1.04) rotate(0); }
+  100% { transform: scale(1) rotate(0); }
+}
+.angry-excl { transform-origin: 300px 277px; animation: angryExcl 2.4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .angry-row, .angry-eye-l, .angry-eye-r, .angry-mouth,
+  .angry-bracket-l, .angry-bracket-r, .angry-excl { animation: none; }
+}
